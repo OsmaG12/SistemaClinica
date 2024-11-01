@@ -14,6 +14,9 @@ builder.Services.AddDbContext<DBContext>(opt =>
     )
 );
 
+// Servicio de sesión
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,8 +32,18 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Activa el middleware de sesión
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+// Indicamos que haremos uso de estos métodos con la siguiente función
+app.UseSession();
+
+app.MapControllerRoute(
+	name: "default",
+	pattern: "{controller=Inicio}/{action=Index}/{id?}");
 
 app.Run();
