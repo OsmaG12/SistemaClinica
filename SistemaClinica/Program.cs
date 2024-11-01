@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using SistemaClinica.Modelos;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Inyección del contexto para la base de datos
+builder.Services.AddDbContext<DBContext>(opt =>
+    opt.UseMySql(
+        builder.Configuration.GetConnectionString("clinicaConexion"),
+        new MySqlServerVersion(new Version(8, 0, 0)) //Version de MySql
+    )
+);
 
 var app = builder.Build();
 

@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SistemaClinica.Modelos;
 using System.Diagnostics;
 
 namespace SistemaClinica.Controllers
 {
     public class HomeController : Controller
     {
-
+        private readonly DBContext _context;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
