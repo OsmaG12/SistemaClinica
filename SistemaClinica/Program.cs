@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+锘縰sing Microsoft.EntityFrameworkCore;
 using SistemaClinica.Modelos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Inyecci髇 del contexto para la base de datos
+// Inyecci贸n del contexto para la base de datos
 builder.Services.AddDbContext<DBContext>(opt =>
     opt.UseMySql(
         builder.Configuration.GetConnectionString("clinicaConexion"),
@@ -14,7 +14,7 @@ builder.Services.AddDbContext<DBContext>(opt =>
     )
 );
 
-// Servicio de sesi髇
+// Servicio de sesi贸n
 builder.Services.AddSession();
 
 var app = builder.Build();
@@ -32,18 +32,34 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Activa el middleware de sesi髇
+// Activa el middleware de sesi贸n
 app.UseSession();
 
 app.UseAuthorization();
 
 app.MapRazorPages();
 
-// Indicamos que haremos uso de estos m閠odos con la siguiente funci髇
+// Indicamos que haremos uso de estos m茅todos con la siguiente funci贸n
 app.UseSession();
 
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Inicio}/{action=Index}/{id?}");
+// Redirige autom锟絫icamente a la vista deseada al inicio
+//app.Use(async (context, next) =>
+//{
+//    if (context.Request.Path == "/" && context.Session.GetString("user") == null)
+//    {
+//        context.Response.Redirect("/Inicio/Login");
+//        return;
+//    }
+
+//    await next();
+//});
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Inicio}/{action=Login}/{id?}");
+    endpoints.MapRazorPages();
+});
 
 app.Run();

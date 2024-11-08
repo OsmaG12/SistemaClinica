@@ -15,34 +15,34 @@ namespace SistemaClinica.Controllers
 		{
 			_context = context;
 		}
-		public IActionResult Index()
+		public IActionResult Login()
         {
-			var listaDeRoles = (from m in _context.Usuarios
+			var listaDeRoles = (from m in _context.usuario
 								select m).ToList();
 			ViewData["listadoDeRoles"] = new SelectList(listaDeRoles, "id_usuario", "tipo_usuario");
 
 			//Aqui recuperamos los datos de la variable de session hacia el objeto "datosUsuario"
 			if (HttpContext.Session.GetString("user") != null)
 			{
-				var datosUsuario = JsonSerializer.Deserialize<Usuario>(HttpContext.Session.GetString("user"));
-				ViewBag.NombreUsuario = datosUsuario.TipoUsuario;
+				var datosUsuario = JsonSerializer.Deserialize<usuario>(HttpContext.Session.GetString("user"));
+				ViewBag.NombreUsuario = datosUsuario.tipo_usuario;
 			}
 			return View();
 		}
 
-		public IActionResult ValidarUsuario(Usuario credenciales)
+		public IActionResult ValidarUsuario(usuario credenciales)
 		{
 
-			Usuario? usuario = (from user in _context.Usuarios
-								 where user.Username == credenciales.Username
-								 && user.Password == credenciales.Password
+            usuario? usuario = (from user in _context.usuario
+                                where user.username == credenciales.username
+								 && user.password == credenciales.password
 								 select user).FirstOrDefault();
 
 			//Si las credenciales no son correctas, saltara el mensaje de error
 			if (usuario == null)
 			{
 				ViewBag.Mensaje = "Credenciales incorrectas.";
-				return View("Index");
+				return View("Login");
 			}
 
 			//Si no da error, saltara a estas lineas de codigo
@@ -50,35 +50,35 @@ namespace SistemaClinica.Controllers
 			HttpContext.Session.SetString("user", datoUsuario);
 
 			//Comprobación de tipo de usuario al autenticar...
-			if (usuario.TipoUsuario == "medico")
+			if (usuario.tipo_usuario == "medico")
 			{
 				HttpContext.Session.SetString("user", datoUsuario);
 				return RedirectToAction("HomeCliente", "Cliente");
 			}
-			else if (usuario.TipoUsuario == "enfermera")
+			else if (usuario.tipo_usuario == "enfermera")
 			{
 				HttpContext.Session.SetString("user", datoUsuario);
 				return RedirectToAction("HomeAdmin", "Admin");
 			}
-			else if (usuario.TipoUsuario == "secretaria")
+			else if (usuario.tipo_usuario == "secretaria")
 			{
 				HttpContext.Session.SetString("user", datoUsuario);
 				return RedirectToAction("Secretaria", "SecretariaController");
 			}
-			else if (usuario.TipoUsuario == "farmacia")
+			else if (usuario.tipo_usuario == "farmacia")
 			{
 				HttpContext.Session.SetString ("user", datoUsuario);
 				return RedirectToAction("Farmacia", "FarmaciaController");
 			}
-			else
-			{
-				HttpContext.Session.SetString("user", datoUsuario);
-				return RedirectToAction("Administrador", "AdministradorController");
-			}
+            else
+            {
+                HttpContext.Session.SetString("user", datoUsuario);
+                return RedirectToAction("AdminHome", "Admin"); // Redirige a la vista AdminHome en el controlador Admin
+            }
 
-			//Me redirige al Index de la carpeta Home, asi se hace para redirigir a otras vistas de diferentes carpetas
-			//return RedirectToAction("Index", "Home");
-		}
+            //Me redirige al Index de la carpeta Home, asi se hace para redirigir a otras vistas de diferentes carpetas
+            //return RedirectToAction("Index", "Home");
+        }
 
 
 

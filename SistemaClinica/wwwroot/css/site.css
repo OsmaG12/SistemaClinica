@@ -45,6 +45,54 @@ body {
     margin-top: 200px;
 }
 
+/* Estilos para el contenedor */
+.form-container {
+    max-width: 800px;
+    background-color: #98e1b1;
+    padding: 30px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
+.form-title {
+    background-color: #3a8f56;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1.5rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: -30px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los campos de entrada */
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Botón */
+.submit-btn {
+    background-color: #3a6ad8;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+    .submit-btn:hover {
+        background-color: #2a4eb6;
+    }
+
+
 form {
     /*display: flex;*/
     flex-direction: column;
