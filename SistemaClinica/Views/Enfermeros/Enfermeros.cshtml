@@ -1,5 +1,61 @@
-﻿e@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
+
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+
+<!-- Estructura de la tabla -->
+<div class="Fondo" style="font-family: >
+
+    <div class="container-fluid">
+
+        <div class="container-fluid login-container text-center mt-5 pt-5 justify-content-center align-content-center"
+             style="max-width: 800px; margin-left: auto; margin-right: auto; padding-bottom: 30px; margin-bottom: 20%; border-radius: 8px; margin-top: 10%; padding-top: 10px; font-family: 'Montserrat' , sans-serif;">
+
+
+            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; text-align: center;">
+                
+                <!-- Primera fila -->
+                <thead>
+                    <tr style="background-color: #00ac00; color: black;">
+                        <th colspan="5" class="text-center" style="padding: 10px;">LISTA DE PACIENTES</th>
+                    </tr>
+                </thead>
+
+                <!-- Segunda fila -->
+                <thead>
+                    <tr style="background-color: forestgreen; color: black;">
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">NOMBRE</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">APELLIDOS</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">FECHA</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">MOTIVO</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">EXPEDIENTE</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                @foreach (var todo in (IEnumerable<dynamic>)ViewData["listadoPacientes"]){
+                        <tr>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@todo.Nombre</td>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@todo.Apellido</td>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@todo.FechaCita</td>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@todo.Estado</td>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">
+                                <button type="button" class="btn btn-expediente" style="background-color: purple; color: white; font-weight: bold; border-radius: 8px; border: none; padding: 10px 20px;">EXPEDIENTE</button>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
