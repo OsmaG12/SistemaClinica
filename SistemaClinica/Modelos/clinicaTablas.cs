@@ -22,7 +22,7 @@ namespace SistemaClinica.Modelos
         public virtual ICollection<Secretaria> Secretarias { get; set; }
         public virtual ICollection<Enfermera> Enfermeras { get; set; }
         public virtual ICollection<Medico> Medicos { get; set; }
-        public virtual ICollection<Paciente> Pacientes { get; set; }
+        public virtual ICollection<paciente> paciente { get; set; }
         public virtual ICollection<Farmacia> Farmacias { get; set; }
     }
 
@@ -82,13 +82,13 @@ namespace SistemaClinica.Modelos
         public int IdUsuario { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<HistorialMedico> HistorialMedico { get; set; }
-        public virtual ICollection<Cita> Citas { get; set; }
+        public virtual ICollection<cita> cita { get; set; }
     }
 
-    public class Paciente
+    public class paciente
     {
         [Key]
-        public int IdPaciente { get; set; }
+        public int id_paciente { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Apellido { get; set; }
@@ -99,25 +99,25 @@ namespace SistemaClinica.Modelos
         public string Email { get; set; }
 
         public virtual ICollection<HistorialMedico> HistorialMedico { get; set; }
-        public virtual ICollection<Cita> Citas { get; set; }
+        public virtual ICollection<cita> cita { get; set; }
     }
 
-    public class Cita
+    public class cita
     {
         [Key]
         public int IdCita { get; set; }
 
         [ForeignKey("Paciente")]
-        public int IdPaciente { get; set; }
+        public int id_paciente { get; set; }
 
         [ForeignKey("Medico")]
         public int IdMedico { get; set; }
 
-        public DateTime FechaCita { get; set; }
+        public DateTime fecha_cita { get; set; }
         public TimeSpan Hora { get; set; }
-        public string Motivo { get; set; }
+        public string motivo { get; set; }
 
-        public virtual Paciente Paciente { get; set; }
+        public virtual paciente paciente { get; set; }
         public virtual Medico Medico { get; set; }
     }
 
@@ -136,7 +136,7 @@ namespace SistemaClinica.Modelos
         public string Diagnostico { get; set; }
         public string Tratamiento { get; set; }
 
-        public virtual Paciente Paciente { get; set; }
+        public virtual paciente Paciente { get; set; }
         public virtual Medico Medico { get; set; }
     }
 

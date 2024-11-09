@@ -17,8 +17,8 @@ namespace SistemaClinica.Modelos
         public DbSet<Secretaria> Secretarias { get; set; }
         public DbSet<Enfermera> Enfermeras { get; set; }
         public DbSet<Medico> Medicos { get; set; }
-        public DbSet<Paciente> Pacientes { get; set; }
-        public DbSet<Cita> Citas { get; set; }
+        public DbSet<paciente> paciente { get; set; }
+        public DbSet<cita> cita { get; set; }
         public DbSet<HistorialMedico> HistorialesMedicos { get; set; }
         public DbSet<Farmacia> Farmacias { get; set; }
 
