@@ -12,15 +12,15 @@ namespace SistemaClinica.Modelos
         }
 
         // Tablas de la base de datos(DbSet)
-    public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Administrador> Administradores { get; set; }
-        public DbSet<Secretaria> Secretarias { get; set; }
-        public DbSet<Enfermera> Enfermeras { get; set; }
-        public DbSet<Medico> Medicos { get; set; }
+        public DbSet<usuario> usuario { get; set; }
+        public DbSet<administrador> administrador { get; set; }
+        public DbSet<secretaria> secretaria { get; set; }
+        public DbSet<enfermera> enfermera { get; set; }
+        public DbSet<medico> medico { get; set; }
         public DbSet<paciente> paciente { get; set; }
         public DbSet<cita> cita { get; set; }
-        public DbSet<HistorialMedico> HistorialesMedicos { get; set; }
-        public DbSet<Farmacia> Farmacias { get; set; }
+        public DbSet<historialmedico> historialesMedico { get; set; }
+        public DbSet<farmacia> farmacia { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -9,79 +9,79 @@ namespace SistemaClinica.Modelos
     {
     }
 
-    public class Usuario
+    public class usuario
     {
         [Key]
-        public int IdUsuario { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string TipoUsuario { get; set; }
+        public int id_usuario { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string tipo_usuario { get; set; }
 
         // Relaciones
-        public virtual ICollection<Administrador> Administradores { get; set; }
-        public virtual ICollection<Secretaria> Secretarias { get; set; }
-        public virtual ICollection<Enfermera> Enfermeras { get; set; }
-        public virtual ICollection<Medico> Medicos { get; set; }
+        public virtual ICollection<administrador> administrador { get; set; }
+        public virtual ICollection<secretaria> secretaria { get; set; }
+        public virtual ICollection<enfermera> enfermera { get; set; }
+        public virtual ICollection<medico> medico { get; set; }
         public virtual ICollection<paciente> paciente { get; set; }
-        public virtual ICollection<Farmacia> Farmacias { get; set; }
+        public virtual ICollection<farmacia> farmacia { get; set; }
     }
 
-    public class Administrador
+    public class administrador
     {
         [Key]
-        public int IdAdministrador { get; set; }
-        public string Nombre { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
+        public int id_administrador { get; set; }
+        public string nombre { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int IdUsuario { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        [ForeignKey("usuario")]
+        public int id_usuario { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 
-    public class Secretaria
+    public class secretaria
     {
         [Key]
-        public int IdSecretaria { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
+        public int id_secretaria { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int IdUsuario { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        [ForeignKey("usuario")]
+        public int id_usuario { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 
-    public class Enfermera
+    public class enfermera
     {
         [Key]
-        public int IdEnfermera { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Turno { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
+        public int id_enfermera { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string turno { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int IdUsuario { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        [ForeignKey("usuario")]
+        public int id_usuario { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 
-    public class Medico
+    public class medico
     {
         [Key]
-        public int IdMedico { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Especialidad { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
+        public int id_medico { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string especialidad { get; set; }
+        public string telefono { get; set; }
+        public string email { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int IdUsuario { get; set; }
-        public virtual Usuario Usuario { get; set; }
-        public virtual ICollection<HistorialMedico> HistorialMedico { get; set; }
+        [ForeignKey("usuario")]
+        public int id_usuario { get; set; }
+        public virtual usuario usuario { get; set; }
+        public virtual ICollection<historialmedico> historialmedico { get; set; }
         public virtual ICollection<cita> cita { get; set; }
     }
 
@@ -89,68 +89,68 @@ namespace SistemaClinica.Modelos
     {
         [Key]
         public int id_paciente { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Apellido { get; set; }
-        public string Peso { get; set; }
-        public string Altura { get; set; }
-        public string Telefono { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public string Email { get; set; }
+        public string nombre { get; set; }
+        public string direccion { get; set; }
+        public string apellido { get; set; }
+        public string peso { get; set; }
+        public string altura { get; set; }
+        public string telefono { get; set; }
+        public DateTime fecha_nacimiento { get; set; }
+        public string email { get; set; }
 
-        public virtual ICollection<HistorialMedico> HistorialMedico { get; set; }
+        public virtual ICollection<historialmedico> historialmedico { get; set; }
         public virtual ICollection<cita> cita { get; set; }
     }
 
     public class cita
     {
         [Key]
-        public int IdCita { get; set; }
+        public int id_cita { get; set; }
 
-        [ForeignKey("Paciente")]
+        [ForeignKey("paciente")]
         public int id_paciente { get; set; }
 
-        [ForeignKey("Medico")]
-        public int IdMedico { get; set; }
+        [ForeignKey("medico")]
+        public int id_medico { get; set; }
 
         public DateTime fecha_cita { get; set; }
-        public TimeSpan Hora { get; set; }
+        public TimeSpan hora { get; set; }
         public string motivo { get; set; }
 
         public virtual paciente paciente { get; set; }
-        public virtual Medico Medico { get; set; }
+        public virtual medico medico { get; set; }
     }
 
-    public class HistorialMedico
+    public class historialmedico
     {
         [Key]
-        public int IdHistorial { get; set; }
+        public int id_historial { get; set; }
 
-        [ForeignKey("Paciente")]
-        public int IdPaciente { get; set; }
+        [ForeignKey("paciente")]
+        public int id_paciente { get; set; }
 
-        [ForeignKey("Medico")]
-        public int IdMedico { get; set; }
+        [ForeignKey("medico")]
+        public int id_medico { get; set; }
 
-        public DateTime Fecha { get; set; }
-        public string Diagnostico { get; set; }
-        public string Tratamiento { get; set; }
+        public DateTime fecha { get; set; }
+        public string diagnostico { get; set; }
+        public string tratamiento { get; set; }
 
-        public virtual paciente Paciente { get; set; }
-        public virtual Medico Medico { get; set; }
+        public virtual paciente paciente { get; set; }
+        public virtual medico medico { get; set; }
     }
 
-    public class Farmacia
+    public class farmacia
     {
         [Key]
-        public int IdMedicamento { get; set; }
-        public string NombreMedicamento { get; set; }
-        public int Cantidad { get; set; }
-        public string Presentacion { get; set; }
-        public DateTime FechaExpiracion { get; set; }
+        public int id_medicamento { get; set; }
+        public string nombre_medicamento { get; set; }
+        public int cantidad { get; set; }
+        public string presentacion { get; set; }
+        public DateTime fecha_expiracion { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int IdUsuario { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        [ForeignKey("usuario")]
+        public int id_usuario { get; set; }
+        public virtual usuario usuario { get; set; }
     }
 }
