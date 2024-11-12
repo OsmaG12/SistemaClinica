@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SistemaClinica.Modelos;
-using System;
-using System.Threading.Tasks;
 
 namespace SistemaClinica.Controllers
 {
