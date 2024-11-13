@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SistemaClinica.Models;
 namespace SistemaClinica.Modelos
 {
     public class DBContext : DbContext
@@ -10,15 +11,10 @@ namespace SistemaClinica.Modelos
         }
 
         // Tablas de la base de datos(DbSet)
-        public DbSet<usuario> usuario { get; set; }
-        public DbSet<administrador> administrador { get; set; }
-        public DbSet<secretaria> secretaria { get; set; }
-        public DbSet<enfermera> enfermera { get; set; }
-        public DbSet<medico> medico { get; set; }
         public DbSet<paciente> paciente { get; set; }
-        public DbSet<cita> cita { get; set; }
-        public DbSet<historialmedico> historialesMedico { get; set; }
-        public DbSet<farmacia> farmacia { get; set; }
+        public DbSet<rol> rol { get; set; }
+        public DbSet<empleado> empleado { get; set; }
+        public DbSet<historial> historial { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
