@@ -57,7 +57,6 @@ namespace SistemaClinica.Controllers
         [HttpPost]
         public IActionResult GenerarReporte(int id_paciente)
         {
-            // Recupera los datos del paciente
             var datosPaciente = (from p in _context.paciente
                                  join h in _context.historial on p.id_paciente equals h.id_paciente
                                  where p.id_paciente == id_paciente
@@ -67,7 +66,6 @@ namespace SistemaClinica.Controllers
                                      apellido = p.apellido,
                                      diagnostico = h.diagnostico,
                                      motivo = p.motivo,
-                                     peso = p.peso,
                                      observacion = h.observacion
                                  }).FirstOrDefault();
 
@@ -76,37 +74,47 @@ namespace SistemaClinica.Controllers
                 return NotFound("Datos del paciente no encontrados.");
             }
 
-            // Crear un documento PDF
             using (var ms = new MemoryStream())
             {
-                // Crear el documento PDF
                 PdfDocument pdfDocument = new PdfDocument();
                 pdfDocument.Info.Title = "Reporte del Paciente";
-
-                // Crear una página
                 PdfPage page = pdfDocument.AddPage();
                 XGraphics gfx = XGraphics.FromPdfPage(page);
 
-                // Establecer la fuente
+                // Cargar y centrar la imagen con un margen inferior
+                string imagePath = "C:\\Users\\oscar\\OneDrive\\Escritorio\\SC-Borrador\\SistemaClinica\\wwwroot\\img\\logo.jpg";
+                XImage image = XImage.FromFile(imagePath);
+                gfx.DrawImage(image, (page.Width - image.PixelWidth) / 2, 10); // Centrado en X, margen superior de 10
+
+                // Espacio adicional debajo de la imagen
+                double imageMarginBottom = 20; // Ajusta este valor para el margen inferior deseado
+
+                // Establecer la fuente y margen inicial para el texto
                 XFont font = new XFont("Verdana", 12);
+                double marginTop = 10 + image.PixelHeight + imageMarginBottom;
 
-                // Escribir los datos en el PDF
-                gfx.DrawString($"Nombre: {datosPaciente.nombre}", font, XBrushes.Black, 10, 20);
-                gfx.DrawString($"Apellido: {datosPaciente.apellido}", font, XBrushes.Black, 10, 40);
-                gfx.DrawString($"Diagnóstico: {datosPaciente.diagnostico}", font, XBrushes.Black, 10, 60);
-                gfx.DrawString($"Motivo: {datosPaciente.motivo}", font, XBrushes.Black, 10, 80);
-                gfx.DrawString($"Peso: {datosPaciente.peso}", font, XBrushes.Black, 10, 100);
-                gfx.DrawString($"Observaciones: {datosPaciente.observacion}", font, XBrushes.Black, 10, 120);
+                // Centrar y escribir el texto
+                string[] lines = {
+            $"Nombre: {datosPaciente.nombre}",
+            $"Apellido: {datosPaciente.apellido}",
+            $"Diagnóstico: {datosPaciente.diagnostico}",
+            $"Motivo: {datosPaciente.motivo}",
+            $"Observaciones: {datosPaciente.observacion}"
+        };
 
-                // Guardar el PDF en el MemoryStream
+                foreach (string line in lines)
+                {
+                    double textWidth = gfx.MeasureString(line, font).Width;
+                    gfx.DrawString(line, font, XBrushes.Black, (page.Width - textWidth) / 2, marginTop);
+                    marginTop += 20; // Espacio entre líneas
+                }
+
                 pdfDocument.Save(ms);
-
-                // Restablecer la posición del MemoryStream antes de enviarlo
                 ms.Position = 0;
 
-                // Enviar el archivo PDF al cliente
-                return File(ms.ToArray(), "application/pdf", "Reporte_Paciente.pdf");
+                return File(ms.ToArray(), "application/pdf", $"Reporte_Paciente_{datosPaciente.nombre}.pdf");
             }
         }
+
     }
 }
