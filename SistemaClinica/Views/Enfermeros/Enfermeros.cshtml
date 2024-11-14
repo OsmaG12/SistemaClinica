@@ -48,7 +48,11 @@
                             <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@todo.FechaCita</td>
                             <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@todo.Estado</td>
                             <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">
-                                <button type="button" class="btn btn-expediente" style="background-color: purple; color: white; font-weight: bold; border-radius: 8px; border: none; padding: 10px 20px;">EXPEDIENTE</button>
+                                <a href="@Url.Action("Cumplimiento", "Enfermeros", new { id_paciente = todo.id_paciente })"
+                                   class="btn btn-expediente"
+                                   style="background-color: purple; color: white; font-weight: bold; border-radius: 8px; border: none; padding: 10px 20px;">
+                                    EXPEDIENTE
+                                </a>
 
                             </td>
                         </tr>
