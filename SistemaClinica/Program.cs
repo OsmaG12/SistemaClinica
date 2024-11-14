@@ -7,10 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Inyección del contexto para la base de datos
-builder.Services.AddDbContext<DBContext>(opt =>
-    opt.UseMySql(
-        builder.Configuration.GetConnectionString("clinicaConexion"),
-        new MySqlServerVersion(new Version(8, 0, 0)) //Version de MySql
+//builder.Services.AddDbContext<DBContext>(opt =>
+//    opt.UseMySql(
+//        builder.Configuration.GetConnectionString("clinicaConexion"),
+//        new MySqlServerVersion(new Version(8, 0, 0)) //Version de MySql
+//    )
+//);
+
+builder.Services.AddDbContext<DBContext>(options =>
+options.UseSqlServer(
+    builder.Configuration.GetConnectionString("clinicaConexion")
     )
 );
 
@@ -42,17 +48,7 @@ app.MapRazorPages();
 // Indicamos que haremos uso de estos métodos con la siguiente función
 app.UseSession();
 
-// Redirige autom�ticamente a la vista deseada al inicio
-//app.Use(async (context, next) =>
-//{
-//    if (context.Request.Path == "/" && context.Session.GetString("user") == null)
-//    {
-//        context.Response.Redirect("/Inicio/Login");
-//        return;
-//    }
-
-//    await next();
-//});
+app.UseHttpsRedirection();
 
 app.UseEndpoints(endpoints =>
 {
