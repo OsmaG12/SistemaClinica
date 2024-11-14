@@ -6,69 +6,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario para Crear Usuario</title>
+    <title>Expediente de Paciente</title>
     <link rel="stylesheet" href="/css/site.css" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="Fondo" style="font-family: 'Montserrat', sans-serif;">
-        <div class="container-fluid">
-            <div class="container-fluid login-container text-center mt-5 pt-5 justify-content-center align-content-center"
-                 style="max-width: 800px; margin-left: auto; margin-right: auto; padding-bottom: 30px; margin-bottom: 20%; border-radius: 8px; margin-top: 10%; padding-top: 10px; font-family: 'Montserrat' , sans-serif;">
-                <div class="container mt-5">
-                    <div class="card">
-                        <div class="card-header text-center bg-success text-white">
-                            <h3>EXPEDIENTE: PACIENTE</h3>
-                        </div>
-                        <div class="card-body">
-                            @if (datosPaciente != null && datosPaciente.Any())
-                            {
-                                foreach (var item in datosPaciente)
+    <div class="container-fluid Fondo" style="font-family: 'Montserrat', sans-serif;">
+        <div class="container text-center mt-5 pt-5" style="max-width: 800px; margin-bottom: 20%; border-radius: 8px;">
+            <div class="card">
+                <div class="card-header bg-success text-white text-center">
+                    <h3>Expediente del Paciente</h3>
+                </div>
+                <div class="card-body">
+                    @if (datosPaciente != null && datosPaciente.Any())
+                    {
+                        foreach (var item in datosPaciente)
+                        {
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" placeholder="Nombre" value="@item.nombre" readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="apellido">Apellido</label>
+                                    <input type="text" class="form-control" id="apellido" placeholder="Apellido" value="@item.apellido" readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="diagnostico">Diagnóstico</label>
+                                    <input type="text" class="form-control" id="diagnostico" placeholder="Diagnóstico" value="@item.diagnostico" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="motivo">Motivo</label>
+                                    <input type="text" class="form-control" id="motivo" placeholder="Motivo" value="@item.motivo" readonly>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="observacion">Observación</label>
+                                    <input type="text" class="form-control" id="observacion" placeholder="Observaciones" value="@item.observacion" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row mt-4">
+                                @using (Html.BeginForm("GenerarReporte", "Enfermeros", FormMethod.Post))
                                 {
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" placeholder="Nombre" value="@item.nombre" readonly>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="Apellido">Apellido</label>
-                                            <input type="text" class="form-control" id="Apellido" placeholder="Apellido" value="@item.apellido" readonly>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="Diagnostico">Diagnóstico</label>
-                                            <input type="text" class="form-control" id="Diagnostico" placeholder="Diagnóstico" value="@item.diagnostico" readonly>
-                                        </div>
+                                    <input type="hidden" name="id_paciente" value="@item.id_paciente" />
+                                    <div class="form-group col-md-6">
+                                        <button type="submit" class="btn btn-primary btn-block">Generar Reporte</button>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="Motivo">Motivo</label>
-                                            <input type="text" class="form-control" id="Motivo" placeholder="Motivo" value="@item.motivo" readonly>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="Observacion">Observación:</label>
-                                            <input type="text" class="form-control" id="observacion" placeholder="Observaciones:" value="@item.observacion" readonly>
-                                        </div>
-                                    </div>
-                                    @using (Html.BeginForm("GenerarReporte", "Enfermeros", FormMethod.Post))
-                                    {
-                                        <input type="hidden" name="id_paciente" value="@item.id_paciente" />
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <button type="submit" class="btn btn-primary btn-block">Generar Reporte</button>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <button type="button" class="btn btn-secondary btn-block">Atrás</button>
-                                            </div>
-                                        </div>
-                                    }
                                 }
-                            }
-                            else
-                            {
-                                <p>No se encontraron datos para este paciente.</p>
-                            }
-                        </div>
-                    </div>
+                                <div class="form-group col-md-6">
+                                    <button type="button" class="btn btn-secondary btn-block">Atrás</button>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>No se encontraron datos para este paciente.</p>
+                    }
                 </div>
             </div>
         </div>

@@ -1,0 +1,89 @@
+﻿@{
+    var datosPaciente = ViewData["cumplimientodatos"] as IEnumerable<dynamic>;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expediente del Paciente</title>
+    <link rel="stylesheet" href="/css/site.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="Fondo" style="font-family: 'Montserrat', sans-serif;">
+        <div class="container-fluid">
+            <div class="container-fluid login-container text-center mt-5 pt-5 justify-content-center align-content-center"
+                 style="max-width: 800px; margin-left: auto; margin-right: auto; padding-bottom: 30px; margin-bottom: 20%; border-radius: 8px; margin-top: 10%; padding-top: 10px; font-family: 'Montserrat', sans-serif;">
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-header text-center bg-success text-white">
+                            <h3>EXPEDIENTE: PACIENTE</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (datosPaciente != null && datosPaciente.Any())
+                            {
+                                foreach (var paciente in datosPaciente)
+                                {
+                                    <form>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="nombre">Nombre:</label>
+                                                <input type="text" class="form-control" id="nombre" value="@paciente.Nombre" readonly>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="apellidos">Apellidos:</label>
+                                                <input type="text" class="form-control" id="apellidos" value="@paciente.Apellido" readonly>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="edad">Edad:</label>
+                                                <input type="text" class="form-control" id="edad" value="@paciente.Edad" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="peso">Peso:</label>
+                                                <input type="text" class="form-control" id="peso" value="@paciente.Peso" readonly>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="altura">Altura:</label>
+                                                <input type="text" class="form-control" id="altura" value="@paciente.Altura" readonly>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="telefono">Teléfono:</label>
+                                                <input type="text" class="form-control" id="telefono" value="@paciente.Telefono" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                                                <input type="text" class="form-control" id="fechaNacimiento" value="@paciente.Fecha_nacimiento" readonly>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="motivo">Motivo:</label>
+                                                <input type="text" class="form-control" id="motivo" value="@paciente.Motivo" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="observaciones">Observaciones:</label>
+                                            <textarea class="form-control" id="observaciones" rows="5" value="@paciente.Observacion" readonly></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                                    </form>
+                                }
+                            }
+                            else
+                            {
+                                <p>No se encontraron datos para este paciente.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,65 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+
 }
+
+
+
+
+<!-- Vista de Doctores -->
+<head>
+    <link rel="stylesheet" href="/css/site.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<div class="Fondo" style="font-family: 'Montserrat', sans-serif;">
+    <div class="container-fluid">
+        <div class="container-fluid login-container text-center mt-5 pt-5 justify-content-center align-content-center"
+             style="max-width: 800px; margin-left: auto; margin-right: auto; padding-bottom: 30px; margin-bottom: 20%; border-radius: 8px; margin-top: 10%; padding-top: 10px;">
+
+            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; text-align: center;">
+                <thead>
+                    <tr style="background-color: #00ac00; color: black;">
+                        <th colspan="5" class="text-center" style="padding: 10px;">LISTA DE PACIENTES</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr style="background-color: forestgreen; color: black;">
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">NOMBRE</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black";>APELLIDOS</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black";>FECHA</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">ID PACIENTE</th>
+                        <th style="background-color: #c2ff9d; padding: 10px; border: 1px solid black;">EXPEDIENTE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var paciente in (IEnumerable<dynamic>)ViewData["listadoPacientes"])
+                    {
+                        <tr>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@paciente.Nombre</td>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@paciente.Apellido</td>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@paciente.FechaCita</td>
+                            <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">@paciente.IdPaciente</td>
+                        <td style="background-color: #b0acac; padding: 10px; border: 1px solid black;">
+                                <a href="@Url.Action("Expediente", "Doctores", new { id_paciente = @paciente.id_paciente })"
+                                   class="btn btn-expediente"
+                                   style="background-color: purple; color: white; font-weight: bold; border-radius: 8px; border: none; padding: 10px 20px;">
+                                    EXPEDIENTE
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    document.getElementById('estadoFilter').addEventListener('change', function () {
+        var selectedEstado = this.value;
+        var url = '@Url.Action("Doctores", "paciente")?estado=' + selectedEstado;
+        window.location.href = url;
+    });
+</script>
